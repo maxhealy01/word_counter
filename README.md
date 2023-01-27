@@ -10,5 +10,4 @@ The program will read all the text files (in .odt, .doc, .docx or .pdf formats) 
 
 It will then create a new file in [dir] containing a list of all the words in each file that repeated more than [min] times.
 
-![]
-(https://github.com/maxhealy01/word_counter/blob/main/functionality.gif)
+![](https://github.com/maxhealy01/word_counter/blob/main/functionality.gif)
