@@ -4,7 +4,7 @@ This program works on the command line.
 
 You can run it with ./main, followed by two arguments.
 
-    ./main *dir* *min*
+    ./main dir min
     
 The program will read all the text files (in .odt, .doc, .docx or .pdf formats) that exist within a given directory *dir* located relative to the program.
 
