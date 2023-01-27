@@ -8,9 +8,8 @@ import (
 )
 
 func main() {
-
 	// Read all the file names in a directory
-	dir := "./" + os.Args[1] + "/"
+	dir := os.Args[1] + "/"
 	files, err := os.ReadDir(dir)
 	if err != nil {
 		fmt.Println("Supply a directory for the first argument")
