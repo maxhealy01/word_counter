@@ -9,7 +9,13 @@ import (
 	"strings"
 )
 
-func getWordCount(s string, min int) []string {
+func getWordCount(f string, min int) []string {
+	text := openAndConvertFileToString(f)
+	words := stringToSlice(text)
+	return mapWordsAndSort(words, min)
+}
+
+func openAndConvertFileToString(s string) string {
 	f, err := os.Open(s)
 	if err != nil {
 		fmt.Println("Error: ", err)
@@ -31,8 +37,7 @@ func getWordCount(s string, min int) []string {
 	case strings.HasSuffix(f.Name(), ".pdf"):
 		text = pdfToString(f)
 	}
-	words := stringToSlice(text)
-	return mapWordsAndSort(words, min)
+	return text
 }
 
 func stringToSlice(text string) []string {
