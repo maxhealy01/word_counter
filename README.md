@@ -2,9 +2,13 @@
 
 This program works on the command line.
 
-After building the program, you can run it with go run main.go, followed by two arguments.
+After building the program:
 
-    "go run main.go [dir] [min]"
+    go build main.go getWordCount.go convertToString.go
+
+you can run it with ./main, followed by two arguments.
+
+    ./main [dir] [min]
     
 The program will read all the text files (in .odt, .doc, .docx or .pdf formats) that exist within a given directory [dir].
 
