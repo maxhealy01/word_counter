@@ -2,11 +2,7 @@
 
 This program works on the command line.
 
-After building the program:
-
-    go build main.go getWordCount.go convertToString.go
-
-you can run it with ./main, followed by two arguments.
+You can run it with ./main, followed by two arguments.
 
     ./main [dir] [min]
     
