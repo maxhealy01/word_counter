@@ -10,6 +10,10 @@ import (
 )
 
 func openAndConvertFileToString(s string) string {
+	if isFileEmpty(s){
+		return ""
+	}
+
 	f, err := os.Open(s)
 	if err != nil {
 		fmt.Println("Error: ", err)
@@ -17,7 +21,7 @@ func openAndConvertFileToString(s string) string {
 	}
 
 	defer f.Close()
-
+	fmt.Println(f.Name())
 	// Perform necessary conversions to string
 	// if ODT, doc, etc
 	var text string
@@ -28,12 +32,22 @@ func openAndConvertFileToString(s string) string {
 		text = docToString(f)
 	case strings.HasSuffix(f.Name(), ".docx"):
 		text = docxToString(f)
-	case strings.HasSuffix(f.Name(), ".pdf"):
-		text = pdfToString(f)
+		case strings.HasSuffix(f.Name(), ".pdf"):
+			text = pdfToString(f)
 	}
 	return text
 }
 
+func isFileEmpty(s string) bool {
+	sizeCheck, err := os.Stat(s)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	if sizeCheck.Size() == 0 {
+		return true
+	}
+	return false
+}
 func odtToString(f io.Reader) string {
 	body, _, err := docconv.ConvertODT(f)
 	if err != nil {
@@ -55,7 +69,7 @@ func docToString(f io.Reader) string {
 func docxToString(f io.Reader) string {
 	body, _, err := docconv.ConvertDocx(f)
 	if err != nil {
-		fmt.Println("Error: ", err)
+		fmt.Println("Hmm? ", err)
 		os.Exit(1)
 	}
 	return body

@@ -32,28 +32,29 @@ func readFilesInDir(dir string) {
 	// Create a file within the directory to write the count to.
 	// Give the file a different name depending on what's being counted
 	var newFileName string
+
 	if min > 0 {
 		newFileName = "word_count.txt"
 	} else {
 		newFileName = searchWord + ".txt"
 	}
 
+	f, err := os.Create(dir + newFileName)
+	if err != nil {
+		fmt.Println("Error: ", err)
+		return
+	}
+	defer f.Close()
+
 	// Add a channel so each file can have its own go routine
 	c := make(chan string)
 	for _, file := range files {
 		if file.Type().IsDir() {
 			fmt.Println(file.Type())
-			readFilesInDir(dir + file.Name())
+			go readFilesInDir(dir + file.Name())
 		} else {
-			f, err := os.Create(dir + newFileName)
-			if err != nil {
-				fmt.Println("Hello: ", err)
-				return
-			}
-			defer f.Close()
 			if min > 0 {
 				go writeAllWordCountToFile(file, min, dir, *f, c)
-
 			} else {
 				go writeSingleWordCountToFile(file, searchWord, dir, *f, c)
 
