@@ -10,7 +10,8 @@ import (
 func getWordCount(f string, min int) []string {
 	text := openAndConvertFileToString(f)
 	words := stringToSlice(text)
-	return mapWordsAndSort(words, min)
+	wordsMap := mapWordsAndSort(words)
+	return wordCountStrings(wordsMap, min)
 }
 
 func stringToSlice(text string) []string {
@@ -22,14 +23,24 @@ func stringToSlice(text string) []string {
 
 // Create a slice of strings in ascending value
 // starting at a minimum number of word repetitions.
-func mapWordsAndSort(words []string, min int) []string {
+func mapWordsAndSort(words []string) map[string]int {
 	wordsMap := map[string]int{}
 
 	for _, word := range words {
 		wordsMap[word]++
 	}
 
-	delete(wordsMap, "")
+	// Delete common words, whose repetition isn't very interesting!
+	commonWords := []string{"", "to", "and", "i", "in", "of", "the", "that", "is", "be", "a", "it", "am", "or", "by", "with", "have", "this", "my", "for", "but", "so", "as"}
+
+	for _, word := range commonWords {
+		delete(wordsMap, word)
+	}
+
+	return wordsMap
+}
+
+func wordCountStrings(wordsMap map[string]int, min int) []string {
 	// Sort map by value
 	keys := make([]string, 0, len(wordsMap))
 
@@ -39,6 +50,7 @@ func mapWordsAndSort(words []string, min int) []string {
 	sort.SliceStable(keys, func(i, j int) bool {
 		return wordsMap[keys[i]] < wordsMap[keys[j]]
 	})
+
 	wordCounts := []string{}
 	for _, k := range keys {
 		if wordsMap[k] >= min {

@@ -10,7 +10,7 @@ import (
 )
 
 func openAndConvertFileToString(s string) string {
-	if isFileEmpty(s){
+	if isFileEmpty(s) {
 		return ""
 	}
 
@@ -32,8 +32,8 @@ func openAndConvertFileToString(s string) string {
 		text = docToString(f)
 	case strings.HasSuffix(f.Name(), ".docx"):
 		text = docxToString(f)
-		case strings.HasSuffix(f.Name(), ".pdf"):
-			text = pdfToString(f)
+	case strings.HasSuffix(f.Name(), ".pdf"):
+		text = pdfToString(f)
 	}
 	return text
 }

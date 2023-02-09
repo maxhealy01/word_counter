@@ -9,7 +9,23 @@ import (
 func main() {
 	dir := os.Args[1]
 
-	readFilesInDir(dir)
+	// If the user wants the total of the words over all files, create a different path
+	// in order to avoid creating multiple files.
+	if os.Args[2] == "total" {
+		f, err := os.Create(dir + "/total.txt")
+		if err != nil {
+			fmt.Println("Error: ", err)
+			return
+		}
+		// Create an array of all the word maps that can then be merged into a single map and written to the file
+		var bigWordMap = []map[string]int{}
+		readFilesWithoutNewFile(dir, *f, &bigWordMap)
+		writeTotalCountToFile(bigWordMap, *f)
+		defer f.Close()
+
+	} else {
+		readFilesInDir(dir)
+	}
 }
 
 func readFilesInDir(dir string) {
