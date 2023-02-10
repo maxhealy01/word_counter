@@ -2,7 +2,10 @@ module word_processor
 
 go 1.19
 
-require code.sajari.com/docconv v1.3.5
+require (
+	code.sajari.com/docconv v1.3.5
+	golang.org/x/exp v0.0.0-20230206171751-46f607a40771
+)
 
 require (
 	github.com/JalfResi/justext v0.0.0-20221106200834-be571e3e3052 // indirect

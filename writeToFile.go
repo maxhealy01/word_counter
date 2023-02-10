@@ -23,10 +23,14 @@ func writeSingleWordCountToFile(file os.DirEntry, searchWord string, dir string,
 	c <- searchWord + " appears " + num + " times in " + fileLocation
 }
 
-func writeTotalCountToFile(bwm []map[string]int, f os.File) {
-	mergedMaps := mergeMaps(bwm)
+func writeTotalCountToFile(mergedMaps map[string]int, f os.File) {
 	wordCountStrings := strings.Join(wordCountStringsNoMin(mergedMaps), "")
 	f.Write([]byte(wordCountStrings))
+}
+
+func writeNameCountToFile(namesMap map[string]int, f os.File) {
+	wordCountStrings := strings.Join(wordCountStringsNoMin(namesMap), "")
+	f.Write([]byte(wordCountStrings))	
 }
 
 func wordCountStringsNoMin(wordsMap map[string]int) []string {

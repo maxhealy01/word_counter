@@ -5,6 +5,22 @@ import (
 	"os"
 )
 
+func getTotal(dir string) {
+	f, err := os.Create(dir + "/total.txt")
+	if err != nil {
+		fmt.Println("Error: ", err)
+		return
+	}
+	// Create an array of all the word maps that can then be merged into a single map and written to the file
+	var bigWordMap = []map[string]int{}
+	readFilesWithoutNewFile(dir, *f, &bigWordMap)
+	mergedMaps := mergeMaps(bigWordMap)
+
+	writeTotalCountToFile(mergedMaps, *f)
+	defer f.Close()
+
+}
+
 func readFilesWithoutNewFile(dir string, f os.File, bigWordMap *[]map[string]int) {
 	dir += "/"
 	// Read all the file names in a directory
