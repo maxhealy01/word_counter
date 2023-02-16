@@ -7,6 +7,8 @@ import (
 )
 
 func main() {
+	setupRoutes()
+
 	dir := os.Args[1]
 
 	// If the user wants the total of the words over all files, create a different path
