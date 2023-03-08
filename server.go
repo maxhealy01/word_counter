@@ -8,7 +8,7 @@ import (
 
 func setupRoutes() {
     http.HandleFunc("/upload", uploadFile)
-		fmt.Println("Starting server")
+		http.HandleFunc("/names", )
     http.ListenAndServe(":8080", nil)
 }
 
